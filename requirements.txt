@@ -2,7 +2,6 @@ dash
 pandas
 plotly
 plotly.express
-plotly.colors
 dash_bootstrap_components
 datetime
 numpy
