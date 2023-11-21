@@ -325,8 +325,10 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha):
     
     data=df.to_dict('records')
     
-    if valor=="Riesgo" or valor=="Rank":
-        columns=[{'name': i, 'id': i, 'deletable': True,} for i in df.columns] 
+    if valor=="Riesgo":
+        columns=[{'name': i, 'id': i, 'deletable': True,"type": "numeric", "format": {'specifier': '.2f'}} for i in df.columns]
+    elif valor=="Rank":
+        columns=[{'name': i, 'id': i, 'deletable': True} for i in df.columns]
     else: columns=[{'name': i, 'id': i,  "type": "numeric", "format": FormatTemplate.percentage(2),
                    'deletable': True,} for i in df.columns] 
     
@@ -423,8 +425,10 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha):
         
     data2=dft.to_dict('records')
     
-    if valor=="Riesgo" or valor=="Rank":
-        columns2=[{'name': i, 'id': i, 'deletable': True,} for i in dft.columns] 
+    if valor=="Riesgo":
+        columns2=[{'name': i, 'id': i, 'deletable': True,"type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
+    elif valor=="Rank":
+        columns2=[{'name': i, 'id': i, 'deletable': True} for i in dft.columns]
     else: columns2=[{'name': i, 'id': i,  "type": "numeric", "format": FormatTemplate.percentage(2),
                    'deletable': True,} for i in dft.columns] 
     
