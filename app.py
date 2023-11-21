@@ -98,20 +98,37 @@ app.layout = html.Div([
 
 @app.callback(
     [Output('razones', 'options'), # This updates the field start_date in the DatePicker
-    Output('instituciones', 'options'),
     Output('razones2', 'options'),  Output('instituciones', 'value'), ], # This updates the field end_date in the DatePicker
-    [Input('tipo_institucion', 'value'), Input('fechas', 'start_date')],
+    [Input('tipo_institucion', 'value')],
 )
 
-def updateDataPicker(tipo_institucion, fecha):
+def updateDataPicker(tipo_institucion):
     if tipo_institucion == 'Bancos':
-        return bancos["Razón"].drop_duplicates(), bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), bancos["Razón"].drop_duplicates(), ["SISTEMA BANCARIO"]
+        return bancos["Razón"].drop_duplicates(),  bancos["Razón"].drop_duplicates(), ["SISTEMA BANCARIO"]
     elif tipo_institucion == 'Financieras':
-        return financieras["Razón"].drop_duplicates(), financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), financieras["Razón"].drop_duplicates(), ["SISTEMA FINANCIERO"]
+        return financieras["Razón"].drop_duplicates(),  financieras["Razón"].drop_duplicates(), ["SISTEMA FINANCIERO"]
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas["Razón"].drop_duplicates(), tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), tarjetas["Razón"].drop_duplicates(), ["SISTEMA CREDITICIO"]
+        return tarjetas["Razón"].drop_duplicates(),  tarjetas["Razón"].drop_duplicates(), ["SISTEMA CREDITICIO"]
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Institución"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["SISTEMA ASEGURADOR"]
+        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["SISTEMA ASEGURADOR"]
+    else:
+        pass
+
+    
+@app.callback(
+    [Output('instituciones', 'options'),Output('razones2', 'value'),Output('valores2', 'value') ], # This updates the field end_date in the DatePicker
+    [Input('tipo_institucion', 'value'), Input('fechas', 'start_date'), Input('razones', 'value'), Input('valores', 'value')],
+)
+
+def updateDataPicker(tipo_institucion, fecha, razon, valor):
+    if tipo_institucion == 'Bancos':
+        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+    elif tipo_institucion == 'Financieras':
+        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+    elif tipo_institucion == 'Tarjetas de crédito':
+        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+    elif tipo_institucion == 'Aseguradoras':
+        return aseguradoras["Institución"].drop_duplicates(), razon, valor
     else:
         pass
 
