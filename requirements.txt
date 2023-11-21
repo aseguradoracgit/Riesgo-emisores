@@ -1,0 +1,12 @@
+dash
+pandas
+collections
+plotly
+plotly.express
+plotly.colors
+dash_bootstrap_components
+datetime
+numpy
+colorlover
+openpyxl
+gunicorn
