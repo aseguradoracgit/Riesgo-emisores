@@ -501,7 +501,7 @@ def toggle_fade(n, is_in):
         # Button has never been clicked
         return False
     button_text = 'Esconder tabla comparativa de todas las razones' if n % 2!= 0 else 'Mostrar tabla comparativa de todas las razones'
-    return not is_in, button_text, css
+    return not is_in, button_text
 
 
 
