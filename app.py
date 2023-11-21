@@ -19,11 +19,6 @@ financieras=pd.read_excel('financieras.xlsx')
 tarjetas=pd.read_excel('tarjetas.xlsx')
 aseguradoras=pd.read_excel('aseguradoras.xlsx')
 
-bancos = bancos[(bancos['Valor'].notna())&(bancos['Institución'].notna())&(bancos["Institución"]!="NEXA, S. A.")]
-financieras = financieras[(financieras['Valor'].notna())&(financieras['Institución'].notna())]
-tarjetas = tarjetas[(tarjetas['Valor'].notna())&(tarjetas['Institución'].notna())]
-aseguradoras = aseguradoras[(aseguradoras['Valor'].notna())&(aseguradoras['Institución'].notna())]
-
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.config.suppress_callback_exceptions = True
 server = app.server
