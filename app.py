@@ -11,7 +11,6 @@ import dash_bootstrap_components as dbc
 from datetime import date
 import datetime
 from pandas.tseries.offsets import MonthEnd
-from dateutil.relativedelta import relativedelta
 import numpy as np
 import colorlover
 
