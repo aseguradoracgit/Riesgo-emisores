@@ -241,7 +241,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha):
     
     df=df.rename(columns={'Valor': 'Valor del mes', 'Promedio':'Promedio del último año'})
     
-    if razon == "Bienes realizables" or valor=="Riesgo" or valor=="Rank" or razon=="Ratio combinado" or razon=="Ratio combinado (original)" or razon=="ROA (desviación estándar)" or razon=="ROE (desviación estándar)":
+    if razon == "Bienes realizables" or valor=="Riesgo" or valor=="Rank" or razon=="Ratio combinado" or razon=="Ratio combinado (original)" or razon=="ROA (desviación estándar)" or razon=="ROE (desviación estándar)" or razon == "Bienes realizables":
         df=df.sort_values(by=["Valor del mes"], ascending=False)
     else: df=df.sort_values(by=["Valor del mes"])
     
