@@ -374,14 +374,20 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     
     if tipo_institucion=="Aseguradoras" and valor=="Razón":
         dft=dft.drop(['Gastos de administración', 'Gastos de adquisición',"Siniestralidad", "Siniestralidad (original)",
-                     'Fecha','Tipo'], axis=1)
+                     'Fecha','Tipo'], axis=1)  
     elif tipo_institucion=="Aseguradoras" and valor!="Riesgo":
         dft=dft.drop(['Gastos de administración', 'Gastos de adquisición',"Siniestralidad", "Siniestralidad (original)",
-                     'Fecha','Tipo', 'Ponderado'], axis=1)
+                     'Fecha','Tipo'], axis=1)
     elif tipo_institucion!="Aseguradoras" and valor=="Razón":
         dft=dft.drop(['Fecha','Tipo'], axis=1)
     else:
-        dft=dft.drop(['Fecha','Tipo', 'Ponderado'], axis=1)
+        dft=dft.drop(['Fecha','Tipo'], axis=1)
+
+    if valor=="Razón":
+        pass
+    else:
+        dft = dft.reindex(columns=(['Ponderado'] + list([a for a in dft.columns if a != 'Ponderado']) ))
+
     
     def discrete_background_color_bins2(dft, n_bins=len(df["Institución"].drop_duplicates()), columns='all'):
         
@@ -449,7 +455,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     if valor=="Riesgo":
         columns2=[{'name': i, 'id': i, 'deletable': True,"type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
     elif valor=="Rank":
-        columns2=[{'name': i, 'id': i, 'deletable': True} for i in dft.columns]
+        columns2=[{'name': i, 'id': i, 'deletable': True, "type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
     else: columns2=[{'name': i, 'id': i,  "type": "numeric", "format": FormatTemplate.percentage(2),
                    'deletable': True,} for i in dft.columns] 
     
