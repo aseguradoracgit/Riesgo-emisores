@@ -457,7 +457,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     
     if valor=="Riesgo":
         columns2=[{'name': i, 'id': i, 'deletable': True,"type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
-    elif valor=="Rank" and tabla_opcion=="Promedio del úlitmo año":
+    elif valor=="Rank" and tabla_opcion=="Promedio del último año":
         columns2=[{'name': i, 'id': i, 'deletable': True, "type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
     elif valor=="Rank":
         columns2=[{'name': i, 'id': i, 'deletable': True} for i in dft.columns]
