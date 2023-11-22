@@ -55,7 +55,8 @@ app.layout = html.Div([
     id="tabla_opcion",value="Mes actual",
     options=["Mes actual", "Promedio del último año"]
     ),dash_table.DataTable(id='table2',sort_action='native',
-                         style_cell={'padding': '5px', 'font-family':'sans-serif'},
+                         style_cell={'padding': '5px', 'font-family':'sans-serif','minWidth': '130px', 'width': '130px', 'maxWidth': '130px',
+        'whiteSpace': 'normal'},
                          style_header={'backgroundColor': 'light gray','fontWeight': 'bold'})],
             id="fade",
             is_in=False,
@@ -447,7 +448,9 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     style_cell_conditional2=[
         {
             'if': {'column_id': c},
-            'textAlign': 'left'
+            'textAlign': 'left','height': 'auto',
+        'minWidth': '300px', 'width': '300px', 'maxWidth': '300px',
+        'whiteSpace': 'normal'
         } for c in ['Institución', '2021','2022','2023']]
         
     data2=dft.to_dict('records')
