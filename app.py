@@ -51,9 +51,12 @@ app.layout = html.Div([
     html.Br(),dbc.Container([
     dbc.Row([dbc.Col([dbc.Button('Mostrar tabla comparativa de todas las razones', id='boton', className="mb-3", n_clicks=0)])],
             )], fluid=True),html.Br(),
-    dbc.Fade(dash_table.DataTable(id='table2',sort_action='native',
+    dbc.Fade([dcc.RadioItems(
+    id="tabla_opcion",value="Mes actual",
+    options=["Mes actual", "Promedio del último año"]
+    ),dash_table.DataTable(id='table2',sort_action='native',
                          style_cell={'padding': '5px', 'font-family':'sans-serif'},
-                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold'}),
+                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold'})],
             id="fade",
             is_in=False,
             appear=False),
@@ -139,9 +142,9 @@ def updateDataPicker(tipo_institucion, fecha, razon, valor):
     Output("table2","style_cell_conditional"), ], 
     [Input('tipo_institucion', 'value'), Input("razones","value"), 
     Input("valores","value"), 
-    Input("fecha","date")]
+    Input("fecha","date"),Input("tabla_opcion", "value")]
 )
-def discrete_background_color_bins(tipo_institucion, razon, valor, fecha):
+def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_opcion):
     if tipo_institucion=="Bancos":
         df = bancos
     elif tipo_institucion=="Financieras":
@@ -358,10 +361,16 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha):
         pass
     
     
-    dft=(((dft[["Institución", "Fecha", "Tipo", "Razón", "Valor"]])[(dft["Tipo"]==valor)
+    if tabla_opcion=="Mes actual":
+        dft=(((dft[["Institución", "Fecha", "Tipo", "Razón", "Valor"]])[(dft["Tipo"]==valor)
             &(dft["Fecha"].dt.date==((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]).pivot_table(index=["Institución", "Fecha", "Tipo"], 
                         columns='Razón', 
                         values='Valor').reset_index())
+    elif tabla_opcion=="Promedio del último año":
+        dft=(((dft[["Institución", "Fecha", "Tipo", "Razón", "Promedio"]])[(dft["Tipo"]==valor)
+            &(dft["Fecha"].dt.date==((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]).pivot_table(index=["Institución", "Fecha", "Tipo"], 
+                        columns='Razón', 
+                        values='Promedio').reset_index())
     
     if tipo_institucion=="Aseguradoras" and valor=="Razón":
         dft=dft.drop(['Gastos de administración', 'Gastos de adquisición',"Siniestralidad", "Siniestralidad (original)",
