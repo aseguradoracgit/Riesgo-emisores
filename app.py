@@ -384,7 +384,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
         dft=dft.drop(['Fecha','Tipo'], axis=1)
 
     if valor=="Razón":
-        pass
+        dft=dft
     else:
         dft = dft.reindex(columns=(['Ponderado'] + list([a for a in dft.columns if a != 'Ponderado']) ))
 
