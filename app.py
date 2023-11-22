@@ -386,7 +386,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     if valor=="Razón":
         dft=dft
     else:
-        dft = dft.reindex(columns=(['Ponderado'] + list([a for a in dft.columns if a != 'Ponderado']) ))
+        dft = dft.reindex(columns=(['Institución','Ponderado'] + list([a for a in dft.columns if a not in['Institución' ,'Ponderado']]) ))
 
     
     def discrete_background_color_bins2(dft, n_bins=len(df["Institución"].drop_duplicates()), columns='all'):
@@ -454,6 +454,8 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     
     if valor=="Riesgo":
         columns2=[{'name': i, 'id': i, 'deletable': True,"type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
+    elif valor=="Rank" and tabla_opcion=="Promedio del úlitmo año":
+        columns2=[{'name': i, 'id': i, 'deletable': True, "type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
     elif valor=="Rank":
         columns2=[{'name': i, 'id': i, 'deletable': True, "type": "numeric", "format": {'specifier': '.2f'}} for i in dft.columns]
     else: columns2=[{'name': i, 'id': i,  "type": "numeric", "format": FormatTemplate.percentage(2),
