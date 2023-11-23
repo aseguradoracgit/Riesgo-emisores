@@ -539,7 +539,7 @@ def display_value(tipo_institucion, instituciones, razon, valor, fecha1, fecha2)
     
     if valor=="Razón": 
         fig.layout.yaxis.tickformat = ',.2%'
-    else pass
+    else: pass
     
     #tabla
     return fig
