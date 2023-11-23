@@ -306,7 +306,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
             ]
             
             if razon == "Bienes realizables" or razon=="Ratio combinado" or razon=="Ratio combinado (original)" or valor=="Riesgo" or valor=="Rank" or razon=="ROA (desviación estándar)" or razon=="ROE (desviación estándar)" or j in ["Gastos de administración",
-                                                       "Gastos de adquisición", "Siniestralidad", "Siniestralidad (original)",  "ROA (desviación estándar)", "ROE (desviación estándar)"]:
+                                                       "Gastos de adquisición", "Siniestralidad", "Siniestralidad (original)",  "ROA (desviación estándar)", "ROE (desviación estándar)", "Bienes realizables"]:
                 paleta=n_colors('rgb(0,255,0)','rgb(255,255,0)',  int(n_bins/2), colortype='rgb')+n_colors('rgb(255,255,0)','rgb(255,69,0)',  int(n_bins/2)+1, colortype='rgb')
             else: paleta=n_colors('rgb(255,69,0)','rgb(255,255,0)',  int(n_bins/2), colortype='rgb')+n_colors('rgb(255,255,0)','rgb(0,255,0)',  int(n_bins/2)+1, colortype='rgb')
 
