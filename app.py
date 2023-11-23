@@ -120,7 +120,7 @@ def updateDataPicker(tipo_institucion):
 
 @app.callback(
     [Output('instituciones', 'options')], # This updates the field end_date in the DatePicker
-    [Input('tipo_institucion', 'value', Input('fechas', 'start_date'))],
+    [Input('tipo_institucion', 'value'), Input('fechas', 'start_date'))],
 )
 
 def updateDataPicker(tipo_institucion, fecha):
