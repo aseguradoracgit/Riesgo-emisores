@@ -118,21 +118,37 @@ def updateDataPicker(tipo_institucion):
     else:
         pass
 
-    
 @app.callback(
-    [Output('instituciones', 'options'),Output('razones2', 'value'),Output('valores2', 'value') ], # This updates the field end_date in the DatePicker
-    [Input('tipo_institucion', 'value'), Input('fechas', 'start_date'), Input('razones', 'value'), Input('valores', 'value')],
+    [Output('instituciones', 'options')], # This updates the field end_date in the DatePicker
+    [Input('tipo_institucion', 'value', Input('fechas', 'start_date'))],
 )
 
-def updateDataPicker(tipo_institucion, fecha, razon, valor):
+def updateDataPicker(tipo_institucion, fecha):
     if tipo_institucion == 'Bancos':
-        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
     elif tipo_institucion == 'Financieras':
-        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(), razon, valor
+        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Institución"].drop_duplicates(), razon, valor
+        return aseguradoras["Institución"].drop_duplicates()
+    else:
+        pass
+
+@app.callback(
+    [Output('razones2', 'value'),Output('valores2', 'value') ], # This updates the field end_date in the DatePicker
+    [Input('tipo_institucion', 'value'), Input('razones', 'value'), Input('valores', 'value')],
+)
+
+def updateDataPicker(tipo_institucion, razon, valor):
+    if tipo_institucion == 'Bancos':
+        return razon, valor
+    elif tipo_institucion == 'Financieras':
+        return razon, valor
+    elif tipo_institucion == 'Tarjetas de crédito':
+        return razon, valor
+    elif tipo_institucion == 'Aseguradoras':
+        return razon, valor
     else:
         pass
 
