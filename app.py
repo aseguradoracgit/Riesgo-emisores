@@ -47,7 +47,7 @@ app.layout = html.Div([
    html.Br(),
     dash_table.DataTable(id='table',sort_action='native', 
                          style_cell={'padding': '5px', 'font-family':'sans-serif'},
-                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold'}),
+                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold', 'textAlign':'left'}),
     html.Br(),dbc.Container([
     dbc.Row([dbc.Col([dbc.Button('Mostrar tabla comparativa de todas las razones', id='boton', className="mb-3", n_clicks=0)])],
             )], fluid=True),html.Br(),
@@ -57,7 +57,7 @@ app.layout = html.Div([
     ),dash_table.DataTable(id='table2',sort_action='native',
                          style_cell={'padding': '5px', 'font-family':'sans-serif','minWidth': '130px', 'width': '130px', 'maxWidth': '130px',
         'whiteSpace': 'normal'},
-                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold'})],
+                         style_header={'backgroundColor': 'light gray','fontWeight': 'bold', 'textAlign':'left'})],
             id="fade",
             is_in=False,
             appear=False),
@@ -108,13 +108,13 @@ app.layout = html.Div([
 
 def updateDataPicker(tipo_institucion):
     if tipo_institucion == 'Bancos':
-        return bancos["Razón"].drop_duplicates(),  bancos["Razón"].drop_duplicates(), ["SISTEMA BANCARIO"]
+        return bancos["Razón"].drop_duplicates(),  bancos["Razón"].drop_duplicates(), ["Sistema Bancario"]
     elif tipo_institucion == 'Financieras':
-        return financieras["Razón"].drop_duplicates(),  financieras["Razón"].drop_duplicates(), ["SISTEMA FINANCIERO"]
+        return financieras["Razón"].drop_duplicates(),  financieras["Razón"].drop_duplicates(), ["Sistema Financiero"]
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas["Razón"].drop_duplicates(),  tarjetas["Razón"].drop_duplicates(), ["SISTEMA CREDITICIO"]
+        return tarjetas["Razón"].drop_duplicates(),  tarjetas["Razón"].drop_duplicates(), ["Sistema Crediticio"]
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["SISTEMA ASEGURADOR"]
+        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["Sistema Asegurador"]
     else:
         pass
 
@@ -199,12 +199,12 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
         dfr=(((dfr[["Institución", "Fecha", "Tipo", "Razón", "Valor"]])[(dfr["Tipo"]==valor)
             &(dfr["Fecha"].dt.date==((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]).pivot_table(index=["Institución", "Fecha", "Tipo"], 
                         columns='Razón', 
-                        values='Valor').reset_index())[["Institución", "ROA (desviación estándar)", "ROE (desviación estándar)"]]
+                        values='Valor').reset_index())[["Institución", "ROA (desviación estándar)", "ROE (desviación estándar)", "ROE", "ROA"]]
     
     else: dfr=(((dfr[["Institución", "Fecha", "Tipo", "Razón", "Valor"]])[(dfr["Tipo"]==valor)
             &(dfr["Fecha"].dt.date==((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]).pivot_table(index=["Institución", "Fecha", "Tipo"], 
                         columns='Razón', 
-                        values='Valor').reset_index())[["Institución", "ROE (desviación estándar)"]]
+                        values='Valor').reset_index())[["Institución", "ROE (desviación estándar)", "ROE"]]
        
     
     
@@ -222,11 +222,11 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
         df["Gastos de administración"]=round(df["Gastos de administración"], 4)
         df["Gastos de adquisición"]=round(df["Gastos de adquisición"], 4)
         df["Siniestralidad (original)"]=round(df["Siniestralidad (original)"], 4)
-    elif razon=="ROE" and valor!="Riesgo":
+    elif razon=="ROE (ponderado)" and valor!="Riesgo":
         df = df.merge(dfr, on=['Institución'], how='left')
-        df = df[["Institución", "Valor", "Promedio","ROE (desviación estándar)", "2021", "2022", "2023"]]
+        df = df[["Institución", "Valor", "Promedio","ROE","ROE (desviación estándar)", "2021", "2022", "2023"]]
         df["ROE (desviación estándar)"]=round(df["ROE (desviación estándar)"], 4)
-    elif razon=="ROA" and valor!="Riesgo":
+    elif razon=="ROA (ponderado)" and valor!="Riesgo":
         df = df.merge(dfr, on=['Institución'], how='left')
         df = df[["Institución", "Valor", "Promedio","ROA (desviación estándar)", "2021", "2022", "2023"]]
         df["ROA (desviación estándar)"]=round(df["ROA (desviación estándar)"], 4)
@@ -251,13 +251,13 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     
     
     if tipo_institucion=="Bancos":
-        valor_default = "SISTEMA BANCARIO"
+        valor_default = "Sistema Bancario"
     elif tipo_institucion=="Financieras":
-        valor_default = "SISTEMA FINANCIERO"
+        valor_default = "Sistema Financiero"
     elif tipo_institucion=="Tarjetas de crédito":
-        valor_default = "SISTEMA CREDITICIO"
+        valor_default = "Sistema Crediticio"
     elif tipo_institucion=="Aseguradoras":
-        valor_default = "SISTEMA ASEGURADOR"
+        valor_default = "Sistema Asegurador"
     else:
         pass
     
