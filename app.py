@@ -536,6 +536,11 @@ def display_value(tipo_institucion, instituciones, razon, valor, fecha1, fecha2)
     fig.update_layout(legend_title="", legend= dict(
     orientation="h", y=-.2
         ))
+    
+    if valor=="Razón": 
+        fig.layout.yaxis.tickformat = ',.2%'
+    else pass
+    
     #tabla
     return fig
 
