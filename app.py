@@ -253,8 +253,7 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
         df["Valor"]=round(df["Valor"], 2)
         df["Promedio"]=round(df["Promedio"], 2)
     else: 
-        df["Valor"]=round(df["Valor"], 4)
-        df["Promedio"]=round(df["Promedio"], 4)
+        pass
     
 
     df = df[df['Valor'].notna()]
@@ -526,8 +525,6 @@ def display_value(tipo_institucion, instituciones, razon, valor, fecha1, fecha2)
     df2 = df2[(df2["Razón"]==razon)&(df2["Tipo"]==valor)&(df2["Institución"].isin(instituciones))&(df2["Tipo"]==valor)
             &(df2["Fecha"].dt.date>=((datetime.datetime.strptime(fecha1, '%Y-%m-%d')+ relativedelta(day=31)).date() ))
            &(df2["Fecha"].dt.date<=((datetime.datetime.strptime(fecha2, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]
-    df2["Valor"]=round(df2["Valor"], 2)
-    df2["Promedio"]=round(df2["Promedio"], 2)
     df2 = df2[df2['Valor'].notna()]
     df2=df2.rename(columns={'Valor': 'Valor del mes', 'Promedio':'Promedio del último año'})
     
