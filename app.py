@@ -45,7 +45,7 @@ app.layout = html.Div([
             )], fluid=True),
     
    html.Br(),
-    dash_table.DataTable(id='table',sort_action='native', 
+    dash_table.DataTable(id='table',sort_action='native', fill_width=False,
                          style_cell={'padding': '5px', 'font-family':'sans-serif'},
                          style_header={'backgroundColor': 'light gray','fontWeight': 'bold', 'textAlign':'left'}),
     html.Br(),dbc.Container([
@@ -54,7 +54,7 @@ app.layout = html.Div([
     dbc.Fade([dcc.RadioItems(
     id="tabla_opcion",value="Mes actual",
     options=["Mes actual", "Promedio del último año"]
-    ),dash_table.DataTable(id='table2',sort_action='native',
+    ),dash_table.DataTable(id='table2',sort_action='native',fill_width=False,
                          style_cell={'padding': '5px', 'font-family':'sans-serif','minWidth': '130px', 'width': '130px', 'maxWidth': '130px',
         'whiteSpace': 'normal'},
                          style_header={'backgroundColor': 'light gray','fontWeight': 'bold', 'textAlign':'left'})],
