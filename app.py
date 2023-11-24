@@ -102,19 +102,20 @@ app.layout = html.Div([
 
 @app.callback(
     [Output('razones', 'options'), # This updates the field start_date in the DatePicker
-    Output('razones2', 'options'),  Output('instituciones', 'value'), ], # This updates the field end_date in the DatePicker
+    Output('razones2', 'options'),  Output('instituciones', 'value'),
+    Output('fecha', 'date')], # This updates the field end_date in the DatePicker
     [Input('tipo_institucion', 'value')],
 )
 
 def updateDataPicker(tipo_institucion):
     if tipo_institucion == 'Bancos':
-        return bancos["Razón"].drop_duplicates(),  bancos["Razón"].drop_duplicates(), ["Sistema Bancario"]
+        return bancos["Razón"].drop_duplicates(),  bancos["Razón"].drop_duplicates(), ["Sistema Bancario"], bancos[bancos["Razón"]!="ROE (desviación estándar)"]["Fecha"].max().strftime('%Y-%m-%d')
     elif tipo_institucion == 'Financieras':
-        return financieras["Razón"].drop_duplicates(),  financieras["Razón"].drop_duplicates(), ["Sistema Financiero"]
+        return financieras["Razón"].drop_duplicates(),  financieras["Razón"].drop_duplicates(), ["Sistema Financiero"], bancos[bancos["Razón"]!="ROE (desviación estándar)"]["Fecha"].max().strftime('%Y-%m-%d')
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas["Razón"].drop_duplicates(),  tarjetas["Razón"].drop_duplicates(), ["Sistema Crediticio"]
+        return tarjetas["Razón"].drop_duplicates(),  tarjetas["Razón"].drop_duplicates(), ["Sistema Crediticio"], tarjetas[tarjetas["Razón"]=="Liquidez inmediata"]["Fecha"].max().strftime('%Y-%m-%d')
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["Sistema Asegurador"]
+        return aseguradoras["Razón"].drop_duplicates(), aseguradoras["Razón"].drop_duplicates(), ["Sistema Asegurador"], bancos[bancos["Razón"]!="ROE (desviación estándar)"]["Fecha"].max().strftime('%Y-%m-%d')
     else:
         pass
 
