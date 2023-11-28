@@ -96,7 +96,7 @@ html.H2("Resumen de riesgo mensual"),
     
     #graficas
     html.Div(dcc.Graph(id="grafica")
-            ),
+            ),html.P(id='placeholder2'),  html.P(id='placeholder3'),  
     
 ])
 
@@ -120,19 +120,19 @@ def updateDataPicker(tipo_institucion):
         pass
 
 @app.callback(
-    [Output('valores', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
+    [Output('valores', 'options'),Output('placeholder2', 'children')], # This updates the field end_date in the DatePicker
     [Input('tipo_institucion', 'value'), Input('razones', 'value')],
 )
 
 def updateDataPicker(tipo_institucion, razon):
     if tipo_institucion == 'Bancos':
-        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Financieras':
-        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
 
 
 @app.callback(
@@ -170,19 +170,19 @@ def updateDataPicker(tipo_institucion, razon, valor):
         pass
 
 @app.callback(
-    [Output('valores2', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
+    [Output('valores2', 'options'),Output('placeholder3', 'children')], # This updates the field end_date in the DatePicker
     [Input('tipo_institucion', 'value'), Input('razones2', 'value')],
 )
 
 def updateDataPicker(tipo_institucion, razon):
     if tipo_institucion == 'Bancos':
-        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Financieras':
-        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),""
 
 
 @app.callback(
