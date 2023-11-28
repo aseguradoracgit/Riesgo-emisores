@@ -25,7 +25,7 @@ server = app.server
 
 
 app.layout = html.Div([
-    
+ html.P(id='placeholder'),    
  html.Br(), html.H2("Resumen de riesgo mensual"),
       dbc.Container([
     dbc.Row([
@@ -120,7 +120,7 @@ def updateDataPicker(tipo_institucion):
         pass
 
 @app.callback(
-    Output('instituciones', 'options'), # This updates the field end_date in the DatePicker
+    [Output('instituciones', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
     [Input('tipo_institucion', 'value'), Input('fechas', 'start_date')],
 )
 
