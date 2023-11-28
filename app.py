@@ -26,7 +26,7 @@ server = app.server
 
 app.layout = html.Div([
  html.P(id='placeholder'),    
- html.Br(), html.H2("Resumen de riesgo mensual"),
+html.H2("Resumen de riesgo mensual"),
       dbc.Container([
     dbc.Row([
         dbc.Col([html.P("Tipo de institución:"), dcc.Dropdown( 
@@ -126,13 +126,13 @@ def updateDataPicker(tipo_institucion):
 
 def updateDataPicker(tipo_institucion, fecha):
     if tipo_institucion == 'Bancos':
-        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
+        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),""
     elif tipo_institucion == 'Financieras':
-        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
+        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),""
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
+        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),""
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Institución"].drop_duplicates(),1
+        return aseguradoras["Institución"].drop_duplicates(),""
     else:
         pass
 
