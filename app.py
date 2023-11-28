@@ -120,6 +120,22 @@ def updateDataPicker(tipo_institucion):
         pass
 
 @app.callback(
+    [Output('valores', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
+    [Input('tipo_institucion', 'value'), Input('razones', 'value')],
+)
+
+def updateDataPicker(tipo_institucion, razon):
+    if tipo_institucion == 'Bancos':
+        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Financieras':
+        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Tarjetas de crédito':
+        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Aseguradoras':
+        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+
+
+@app.callback(
     [Output('instituciones', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
     [Input('tipo_institucion', 'value'), Input('fechas', 'start_date')],
 )
@@ -152,6 +168,22 @@ def updateDataPicker(tipo_institucion, razon, valor):
         return razon, valor
     else:
         pass
+
+@app.callback(
+    [Output('valores2', 'options'),Output('placeholder', 'children')], # This updates the field end_date in the DatePicker
+    [Input('tipo_institucion', 'value'), Input('razones2', 'value')],
+)
+
+def updateDataPicker(tipo_institucion, razon):
+    if tipo_institucion == 'Bancos':
+        return bancos[bancos["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Financieras':
+        return financieras[financieras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Tarjetas de crédito':
+        return tarjetas[tarjetas["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+    elif tipo_institucion == 'Aseguradoras':
+        return aseguradoras[aseguradoras["Razón"]==razon]["Tipo"].drop_duplicates().tolist(),1
+
 
 @app.callback(
     [Output("table","data"), Output("table","columns"), Output("table","style_data_conditional"),
