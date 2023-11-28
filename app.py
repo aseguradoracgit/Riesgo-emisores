@@ -126,13 +126,13 @@ def updateDataPicker(tipo_institucion):
 
 def updateDataPicker(tipo_institucion, fecha):
     if tipo_institucion == 'Bancos':
-        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
+        return bancos[(bancos["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
     elif tipo_institucion == 'Financieras':
-        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
+        return financieras[(financieras["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
     elif tipo_institucion == 'Tarjetas de crédito':
-        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates()
+        return tarjetas[(tarjetas["Fecha"].dt.date>=((datetime.datetime.strptime(fecha, '%Y-%m-%d')+ relativedelta(day=31)).date() ))]["Institución"].drop_duplicates(),1
     elif tipo_institucion == 'Aseguradoras':
-        return aseguradoras["Institución"].drop_duplicates()
+        return aseguradoras["Institución"].drop_duplicates(),1
     else:
         pass
 
