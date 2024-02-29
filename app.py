@@ -260,27 +260,27 @@ def discrete_background_color_bins(tipo_institucion, razon, valor, fecha, tabla_
     if razon=="Ratio combinado" and valor!="Riesgo":
         df = df.merge(aseg, on=['Institución'], how='left')
         df = df[["Institución", "Valor", "Promedio","Gastos de administración", "Gastos de adquisición", 
-                "Siniestralidad", "2021", "2022", "2023"]]
+                "Siniestralidad", "2021", "2022", "2023", "2024"]]
         df["Gastos de administración"]=round(df["Gastos de administración"], 4)
         df["Gastos de adquisición"]=round(df["Gastos de adquisición"], 4)
         df["Siniestralidad"]=round(df["Siniestralidad"], 4)
     elif razon=="Ratio combinado (original)" and valor!="Riesgo":
         df = df.merge(aseg, on=['Institución'], how='left')
         df = df[["Institución", "Valor", "Promedio","Gastos de administración", "Gastos de adquisición", 
-                "Siniestralidad (original)", "2021", "2022", "2023"]]  
+                "Siniestralidad (original)", "2021", "2022", "2023", "2024"]]  
         df["Gastos de administración"]=round(df["Gastos de administración"], 4)
         df["Gastos de adquisición"]=round(df["Gastos de adquisición"], 4)
         df["Siniestralidad (original)"]=round(df["Siniestralidad (original)"], 4)
     elif razon=="ROE (ponderado)" and valor!="Riesgo":
         df = df.merge(dfr, on=['Institución'], how='left')
-        df = df[["Institución", "Valor", "Promedio","ROE","ROE (desviación estándar)", "2021", "2022", "2023"]]
+        df = df[["Institución", "Valor", "Promedio","ROE","ROE (desviación estándar)", "2021", "2022", "2023", "2024"]]
         df["ROE (desviación estándar)"]=round(df["ROE (desviación estándar)"], 4)
     elif razon=="ROA (ponderado)" and valor!="Riesgo":
         df = df.merge(dfr, on=['Institución'], how='left')
-        df = df[["Institución", "Valor", "Promedio","ROA (desviación estándar)", "2021", "2022", "2023"]]
+        df = df[["Institución", "Valor", "Promedio","ROA (desviación estándar)", "2021", "2022", "2023", "2024"]]
         df["ROA (desviación estándar)"]=round(df["ROA (desviación estándar)"], 4)
         
-    else: df = df[["Institución", "Valor", "Promedio","2021", "2022", "2023"]]  
+    else: df = df[["Institución", "Valor", "Promedio","2021", "2022", "2023", "2024"]]  
     
     if valor=="Riesgo" or valor=="Rank":
         df["Valor"]=round(df["Valor"], 2)
